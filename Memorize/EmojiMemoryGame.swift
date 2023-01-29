@@ -14,7 +14,8 @@ import SwiftUI
 // On classes you can't have var's without initializers.
 // We're using Type Variable & Type Function as if they were globals.
 
-class EmojiMemoryGame {
+// our viewmodel behaves as ObservableObject
+class EmojiMemoryGame: ObservableObject {
     
     static let emojis = ["👽", "😵‍💫", "💩", "🤡", "💝", "🧲", "🛡", "🪤", "🚖", "🛹", "🧄", "🥩", "🍏", "💦", "🌊", "🌳",
                   "🏢", "🎁", "📭", "🤓", "🏧", "❎", "🔱", "🚼", "🚹", "🎺", "🎮", "🚑", "🤼‍♀️", "☀️", "🌺", "🍄"]
@@ -24,7 +25,7 @@ class EmojiMemoryGame {
     // Un número que inicializa el número de cartas.
     // Una función que recibe un entero y regresa un String
     static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: 10) { pairIndex in
+        MemoryGame<String>(numberOfPairsOfCards: 3) { pairIndex in
             emojis[pairIndex]
         }
     }
@@ -32,7 +33,9 @@ class EmojiMemoryGame {
     // Esta variable se inicializa cuando llamamos a EmojiMemoryGame desde Content View
     // Declara el parámetro 'don't care' del Modelo como <String>
     // Llama a la función createMemoryGame().
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    
+    // keyword @Published means that anytime the var changes it will publish to the world
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
     
     var cards: Array<MemoryGame<String>.Card> {
@@ -41,6 +44,10 @@ class EmojiMemoryGame {
     
     // MARK: - Intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
+        // this line means that it will publish to
+        // the world when something changes in the model
+        // objectWillChange.send()
+        // another alternative is @Published
         model.choose(card)
     }
 }

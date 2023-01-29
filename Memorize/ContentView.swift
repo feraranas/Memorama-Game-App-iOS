@@ -12,8 +12,11 @@ struct ContentView: View {
     // We are accesing the ViewModel from the view.
     // A view is an agent to what's in the model.
     // And because, the ViewModel has access to the model,
-    // ContentView (the view) recieves ViewModel as parameter
-    let viewModel: EmojiMemoryGame
+    // ContentView (the view) recieves ViewModel as parameter.
+    
+    // @ObservedObject is listening to changes. Redraws everytime.
+    @ObservedObject var viewModel: EmojiMemoryGame
+    
     
     var body: some View {
             ScrollView {

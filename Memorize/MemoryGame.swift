@@ -15,7 +15,7 @@ struct MemoryGame<CardContent> {
     private(set) var cards: Array<MemoryGame.Card>
     
     // Keyword mutating in front of a function means that
-    // it's available to change state of Global var 'Cards' Array.
+    // it's available to change state of self. Remember: struct is immutable
     mutating func choose(_ card: MemoryGame.Card) {
         let chosenIndex = index(of: card)
         cards[chosenIndex].isFaceUp.toggle()
