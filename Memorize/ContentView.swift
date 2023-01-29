@@ -53,7 +53,10 @@ struct CardView: View {
                 shape.strokeBorder(style: StrokeStyle(lineWidth: 3))
                 
                 Text(card.content).font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
-            } else {
+            } else if card.isMatched {
+                shape.opacity(0)
+            }
+            else {
                 shape.fill(.red)
             }
         }
